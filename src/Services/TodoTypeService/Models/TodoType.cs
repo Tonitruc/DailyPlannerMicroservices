@@ -1,6 +1,6 @@
-﻿namespace CaseTypeService.Models;
+﻿namespace TodoTypeService.Models;
 
-public class CaseType
+public class TodoType
 {
     public int Id { get; set; }
 

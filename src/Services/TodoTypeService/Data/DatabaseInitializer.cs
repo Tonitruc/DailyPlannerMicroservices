@@ -1,7 +1,7 @@
-﻿using CaseTypeService.Models;
+﻿using TodoTypeService.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace CaseTypeService.Data;
+namespace TodoTypeService.Data;
 
 public static class DatabaseInitializer
 {
@@ -65,29 +65,29 @@ public class ApplicationDatabaseInitializer
 
     public async Task TrySeedAsync()
     {
-        if (!_context.CaseTypes.Any())
+        if (!_context.TodoTypes.Any())
         {
-            await _context.CaseTypes.AddRangeAsync(
-                new CaseType { Name = "Meeting" },
-                new CaseType { Name = "Call" },
-                new CaseType { Name = "Email" },
-                new CaseType { Name = "Project Work" },
-                new CaseType { Name = "Conference" },
-                new CaseType { Name = "Lunch" },
-                new CaseType { Name = "Workout" },
-                new CaseType { Name = "Study" },
-                new CaseType { Name = "Shopping" },
-                new CaseType { Name = "Reminder" },
-                new CaseType { Name = "Trip" },
-                new CaseType { Name = "Deadline" },
-                new CaseType { Name = "Reading" },
-                new CaseType { Name = "Meditation" },
-                new CaseType { Name = "Movie" },
-                new CaseType { Name = "Task Specification" },
-                new CaseType { Name = "Planning" },
-                new CaseType { Name = "Household Chores" },
-                new CaseType { Name = "Daily Summary" },
-                new CaseType { Name = "Documentation" }
+            await _context.TodoTypes.AddRangeAsync(
+                new TodoType { Name = "Meeting" },
+                new TodoType { Name = "Call" },
+                new TodoType { Name = "Email" },
+                new TodoType { Name = "Project Work" },
+                new TodoType { Name = "Conference" },
+                new TodoType { Name = "Lunch" },
+                new TodoType { Name = "Workout" },
+                new TodoType { Name = "Study" },
+                new TodoType { Name = "Shopping" },
+                new TodoType { Name = "Reminder" },
+                new TodoType { Name = "Trip" },
+                new TodoType { Name = "Deadline" },
+                new TodoType { Name = "Reading" },
+                new TodoType { Name = "Meditation" },
+                new TodoType { Name = "Movie" },
+                new TodoType { Name = "Task Specification" },
+                new TodoType { Name = "Planning" },
+                new TodoType { Name = "Household Chores" },
+                new TodoType { Name = "Daily Summary" },
+                new TodoType { Name = "Documentation" }
             );
 
             await _context.SaveChangesAsync();

@@ -1,8 +1,8 @@
-﻿using CaseTypeService.Models;
+﻿using TodoTypeService.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
-namespace CaseTypeService.Data;
+namespace TodoTypeService.Data;
 
 public class ApplicationDbContext : DbContext
 {
@@ -10,7 +10,7 @@ public class ApplicationDbContext : DbContext
         : base(options) { }
 
     
-    public DbSet<CaseType> CaseTypes { get; set; }
+    public DbSet<TodoType> TodoTypes { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

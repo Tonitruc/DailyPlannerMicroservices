@@ -1,12 +1,12 @@
-﻿using CaseTypeService.Models;
+﻿using TodoTypeService.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CaseTypeService.Data.Configurations;
+namespace TodoTypeService.Data.Configurations;
 
-public class CaseTypeConfiguration : IEntityTypeConfiguration<CaseType>
+public class TodoTypeConfiguration : IEntityTypeConfiguration<TodoType>
 {
-    public void Configure(EntityTypeBuilder<CaseType> builder)
+    public void Configure(EntityTypeBuilder<TodoType> builder)
     {
         builder.HasIndex(ct => ct.Name)
             .IsUnique();
