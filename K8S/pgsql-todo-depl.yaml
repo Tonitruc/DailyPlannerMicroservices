@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pgsql-depl
+  name: pgsql-todo-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: pgsql
+      app: pgsqltodo
   template:
     metadata:
       labels:
-        app: pgsql
+        app: pgsqltodo
     spec:
       containers:
-        - name: pgsql
+        - name: pgsqltodo
           image: postgres:17
           ports:
             - containerPort: 5432
@@ -21,17 +21,17 @@ spec:
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: postgres-secret
+                  name: postgres-todo-secret
                   key: password
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
-                  name: postgres-secret
+                  name: postgres-todo-secret
                   key: username
             - name: POSTGRES_DB
               valueFrom:
                 secretKeyRef:
-                  name: postgres-secret
+                  name: postgres-todo-secret
                   key: database
           volumeMounts:
             - name: pgsqldb
@@ -39,18 +39,18 @@ spec:
       volumes:
         - name: pgsqldb
           persistentVolumeClaim:
-            claimName: pgsql-claim
+            claimName: pgsql-todo-claim
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: pgsql-clusterip-srv
+  name: pgsqltodo-clusterip-srv
 spec:
   type: ClusterIP
   selector:
-    app: pgsql
+    app: pgsqltodo
   ports:
-    - name: pgsql
+    - name: pgsqltodo
       protocol: TCP
       port: 5432
       targetPort: 5432
@@ -58,12 +58,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: pgsql-loadbalancer
+  name: pgsqltodo-loadbalancer
 spec:
   type: LoadBalancer
   selector:
-    app: pgsql
+    app: pgsqltodo
   ports:
     - protocol: TCP
-      port: 5434
+      port: 5433
       targetPort: 5432

@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todoservice
+  template:
+    metadata:
+      labels:
+        app: todoservice
+    spec:
+      containers:
+        - name: todoservice
+          image: tonitrus/todoservice:0.2
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo-clusterip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: todoservice
+  ports:
+    - name: todoservice
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+    - name: todogrps
+      protocol: TCP
+      port: 666
+      targetPort: 666
