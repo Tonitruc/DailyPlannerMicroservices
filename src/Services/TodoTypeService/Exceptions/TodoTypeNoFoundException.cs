@@ -1,6 +1,8 @@
-﻿namespace TodoTypeService.Exceptions;
+﻿using BaseBuldingsBlocks.Exceptions.Base;
 
-public class TodoTypeNoFoundException : Exception
+namespace TodoTypeService.Exceptions;
+
+public class TodoTypeNoFoundException : NotFoundException
 {
     public TodoTypeNoFoundException()
         : base($"There is no such Todo type.") { }
