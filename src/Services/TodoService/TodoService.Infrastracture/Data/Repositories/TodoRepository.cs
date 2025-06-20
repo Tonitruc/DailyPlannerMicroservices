@@ -19,4 +19,17 @@ public class TodoRepository(ApplicationDbContext context) : ITodoRepository
             .AsNoTracking()
             .FirstOrDefaultAsync(cancellationToken);
     }
+    public async Task<Todo> CreateTodoAsync(Todo todo, CancellationToken cancellationToken = default)
+    {
+        var entry = await context.Todos
+            .AddAsync(todo, cancellationToken);
+
+        return entry.Entity;
+    }
+
+    public bool DeleteTodo(Todo todo)
+    {
+        context.Remove(todo);
+        return true;
+    }
 }

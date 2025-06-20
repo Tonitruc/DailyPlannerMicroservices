@@ -5,20 +5,22 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using TodoService.Domain.Contracts.Repositories;
 using TodoService.Infrastracture.Data.Repositories;
+using FluentValidation;
+using System.Reflection;
 
 namespace TodoService.Infrastracture;
 
 public static class DependencyInjection
 {
-    public static void AddInfrastractureServices(this IHostApplicationBuilder hostBuilder)
+    public static void AddInfrastractureServices(this IHostApplicationBuilder applicationBuilder)
     {
-        hostBuilder.Services.AddSingleton(TimeProvider.System);
+        applicationBuilder.Services.AddSingleton(TimeProvider.System);
 
-        hostBuilder.Services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseNpgsql(hostBuilder.Configuration.GetConnectionString("PostgresSQL")));
-        hostBuilder.Services.AddScoped<ApplicationDatabaseInitializer>();
+        applicationBuilder.Services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseNpgsql(applicationBuilder.Configuration.GetConnectionString("PostgresSQL")));
+        applicationBuilder.Services.AddScoped<ApplicationDatabaseInitializer>();
 
-        hostBuilder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
-        hostBuilder.Services.AddScoped<ITodoRepository, TodoRepository>();
+        applicationBuilder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
+        applicationBuilder.Services.AddScoped<ITodoRepository, TodoRepository>();
     }
 }

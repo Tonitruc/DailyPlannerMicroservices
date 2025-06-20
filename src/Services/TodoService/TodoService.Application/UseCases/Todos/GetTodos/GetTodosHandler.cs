@@ -1,7 +1,7 @@
-﻿using AutoMapper;
-using MediatR;
-using TodoService.Application.Dtos;
+﻿using TodoService.Application.Dtos;
 using TodoService.Domain.Contracts.Repositories;
+using AutoMapper;
+using MediatR;
 
 namespace TodoService.Application.UseCases.Todos.GetTodos;
 

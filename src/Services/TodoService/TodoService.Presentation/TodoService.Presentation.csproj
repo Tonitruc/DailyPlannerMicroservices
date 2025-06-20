@@ -19,6 +19,7 @@
    </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\BaseBuldingsBlocks\BaseBuldingsBlocks.csproj" />
     <ProjectReference Include="..\TodoService.Application\TodoService.Application.csproj" />
     <ProjectReference Include="..\TodoService.Infrastracture\TodoService.Infrastracture.csproj" />
   </ItemGroup>

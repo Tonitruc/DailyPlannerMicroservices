@@ -1,24 +1,28 @@
-using TodoService.Application.UseCases.Todos.GetTodos;
+using BaseBuldingsBlocks.Middleware;
 using TodoService.Application;
 using TodoService.Infrastracture;
 using TodoService.Infrastracture.Data;
-using MediatR;
+using TodoService.Presentation.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddApplicationServices();
 builder.AddInfrastractureServices();
 
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+
+builder.Services.Configure<RouteOptions>(options =>
+{
+    options.LowercaseUrls = true;
+    options.AppendTrailingSlash = true;
+});
+
 var app = builder.Build();
 
+app.UseExceptionHandler(options => { });
+
 app.MapGet("/", () => "Todo service is work!...");
-
-app.MapGet("/api/todo", async (ISender sender) =>
-{
-    var result = await sender.Send(new GetTodosQuery());
-
-    return result;
-});
+app.MapEndpoints(); //TODO Controllers or Curter library?
 
 await app.InitializeDatabaseAsync();
 

@@ -4,5 +4,5 @@ public interface IRepositoryManager
 {
     ITodoRepository Todos { get; }
 
-    Task<bool> SaveChangesAsync();
+    Task<bool> SaveChangesAsync(CancellationToken cancellationToken);
 }
