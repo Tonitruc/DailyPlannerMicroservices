@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using TodoService.Application.Dtos;
-using TodoService.Application.UseCases.Todos.CreateTodo;
+using TodoService.Application.UseCases.Todos.Commands.CreateTodo;
 
 namespace TodoService.Application.Validation.TodoValidators;
 

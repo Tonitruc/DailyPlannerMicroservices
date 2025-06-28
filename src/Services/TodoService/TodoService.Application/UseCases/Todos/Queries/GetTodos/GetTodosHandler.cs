@@ -3,7 +3,7 @@ using TodoService.Domain.Contracts.Repositories;
 using AutoMapper;
 using MediatR;
 
-namespace TodoService.Application.UseCases.Todos.GetTodos;
+namespace TodoService.Application.UseCases.Todos.Queries.GetTodos;
 
 public sealed record GetTodosQuery() : IRequest<IEnumerable<TodoDto>>;
 

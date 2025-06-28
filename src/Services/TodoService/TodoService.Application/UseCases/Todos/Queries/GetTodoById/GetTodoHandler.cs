@@ -4,7 +4,7 @@ using TodoService.Domain.Contracts.Repositories;
 using AutoMapper;
 using MediatR;
 
-namespace TodoService.Application.UseCases.Todos.GetTodoById;
+namespace TodoService.Application.UseCases.Todos.Queries.GetTodoById;
 
 public record GetTodoByIdQuery(int Id) : IRequest<TodoDto>;
 

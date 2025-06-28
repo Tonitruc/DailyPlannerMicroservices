@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using TodoTypeService.Exceptions;
 using AutoMapper;
 using TodoTypeService.Models;
+using MassTransit;
 
 namespace TodoTypeService.TodoTypes.CreateTodoType;
 
@@ -15,8 +16,8 @@ public class CreateTodoTypeCommandHandler : IRequestHandler<CreateTodoTypeComman
 
     private readonly IMapper _mapper;
 
-
-    public CreateTodoTypeCommandHandler(ApplicationDbContext context, IMapper mapper)
+    public CreateTodoTypeCommandHandler(ApplicationDbContext context,
+        IMapper mapper)
     {
         _context = context;
         _mapper = mapper;

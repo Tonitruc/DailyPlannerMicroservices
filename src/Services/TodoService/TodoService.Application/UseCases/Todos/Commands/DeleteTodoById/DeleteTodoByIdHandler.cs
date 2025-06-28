@@ -2,7 +2,7 @@
 using TodoService.Application.Common.Exceptions.Specific;
 using TodoService.Domain.Contracts.Repositories;
 
-namespace TodoService.Application.UseCases.Todos.DeleteTodoById;
+namespace TodoService.Application.UseCases.Todos.Commands.DeleteTodoById;
 
 public record DeleteTodoCommand(int Id) : IRequest<bool>;
 

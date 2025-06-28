@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace TodoService.Infrastracture.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class Test : Migration
+    public partial class InitDatabse : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -22,6 +22,7 @@ namespace TodoService.Infrastracture.Data.Migrations
                     Description = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
                     StartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    TypeExternalId = table.Column<int>(type: "integer", nullable: false),
                     Created = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedBy = table.Column<string>(type: "text", nullable: true),
                     LastModified = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
@@ -34,8 +35,8 @@ namespace TodoService.Infrastracture.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Todos",
-                columns: new[] { "Id", "Created", "CreatedBy", "Description", "EndDate", "LastModified", "LastModifiedBy", "StartDate", "Title" },
-                values: new object[] { 1, null, "God", "Test", null, null, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Test" });
+                columns: new[] { "Id", "Created", "CreatedBy", "Description", "EndDate", "LastModified", "LastModifiedBy", "StartDate", "Title", "TypeExternalId" },
+                values: new object[] { 1, null, "God", "Test", null, null, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Test", 1 });
         }
 
         /// <inheritdoc />

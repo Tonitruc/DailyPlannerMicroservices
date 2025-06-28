@@ -12,8 +12,8 @@ using TodoService.Infrastracture.Data;
 namespace TodoService.Infrastracture.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250619071711_Test")]
-    partial class Test
+    [Migration("20250625115424_InitDatabse")]
+    partial class InitDatabse
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -60,6 +60,9 @@ namespace TodoService.Infrastracture.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
+                    b.Property<int>("TypeExternalId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.ToTable("Todos");
@@ -71,7 +74,8 @@ namespace TodoService.Infrastracture.Data.Migrations
                             CreatedBy = "God",
                             Description = "Test",
                             StartDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Test"
+                            Title = "Test",
+                            TypeExternalId = 1
                         });
                 });
 #pragma warning restore 612, 618

@@ -1,10 +1,10 @@
-﻿using TodoService.Application.UseCases.Todos.GetTodos;
+﻿using TodoService.Application.UseCases.Todos.Queries.GetTodos;
 using TodoService.Presentation.Extensions;
 using Microsoft.AspNetCore.Http.HttpResults;
 using TodoService.Application.Dtos;
-using TodoService.Application.UseCases.Todos.GetTodoById;
-using TodoService.Application.UseCases.Todos.CreateTodo;
-using TodoService.Application.UseCases.Todos.DeleteTodoById;
+using TodoService.Application.UseCases.Todos.Queries.GetTodoById;
+using TodoService.Application.UseCases.Todos.Commands.CreateTodo;
+using TodoService.Application.UseCases.Todos.Commands.DeleteTodoById;
 using MediatR;
 
 namespace TodoService.Presentation.Endpoints;

@@ -13,6 +13,8 @@ public class Todo : Entity<int>
 
     public DateTime? EndDate { get; set; }
 
+    public int TypeExternalId { get; set; }
+
     //public TimeSpan? ExecutionTime { get; set; }
 
     //public TodoStatus Status { get; set; }

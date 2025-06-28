@@ -26,7 +26,7 @@ public class TodoConfiguration : IEntityTypeConfiguration<Todo>
 
         builder.
             HasData(
-                new Todo() {Id = 1, Title = "Test", Description = "Test", CreatedBy = "God"}
+                new Todo() {Id = 1, Title = "Test", Description = "Test", CreatedBy = "God", TypeExternalId = 1}
             );
     }
 }

@@ -4,7 +4,7 @@ using TodoService.Domain.Models;
 using AutoMapper;
 using MediatR;
 
-namespace TodoService.Application.UseCases.Todos.CreateTodo;
+namespace TodoService.Application.UseCases.Todos.Commands.CreateTodo;
 
 public record CreateTodoCommand(CreateTodoDto TodoDto) : IRequest<int>;
 

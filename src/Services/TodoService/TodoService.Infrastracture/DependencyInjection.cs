@@ -1,12 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using TodoService.Infrastracture.Data;
-using Microsoft.Extensions.Hosting;
+﻿using MassTransit;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using TodoService.Domain.Contracts.Repositories;
-using TodoService.Infrastracture.Data.Repositories;
-using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System.Reflection;
+using TodoService.Application.UseCases.Todos.Events;
+using TodoService.Domain.Contracts.Repositories;
+using TodoService.Infrastracture.Data;
+using TodoService.Infrastracture.Data.Repositories;
 
 namespace TodoService.Infrastracture;
 
@@ -22,5 +23,21 @@ public static class DependencyInjection
 
         applicationBuilder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
         applicationBuilder.Services.AddScoped<ITodoRepository, TodoRepository>();
+
+        applicationBuilder.Services.AddMassTransit(x =>
+        {
+            x.AddConsumer(typeof(TestEventHandler));
+
+            x.UsingRabbitMq((context, cfg) =>
+            {
+                cfg.Host("localhost", "/", h =>
+                {
+                    h.Username("guest");
+                    h.Password("guest");
+                });
+
+                cfg.ConfigureEndpoints(context);
+            });
+        });
     }
 }

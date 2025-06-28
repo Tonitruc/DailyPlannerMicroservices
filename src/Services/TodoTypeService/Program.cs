@@ -1,11 +1,13 @@
 using BaseBuldingsBlocks.Behaviors;
 using BaseBuldingsBlocks.Middleware;
+using FluentValidation;
+using MassTransit;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System.Reflection;
 using TodoTypeService.Data;
 using TodoTypeService.Endpoints;
-using FluentValidation;
-using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +39,26 @@ builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
+builder.Services.Configure<IOptions<RabbitMQSettings>>(cfg => 
+    builder.Configuration.GetSection("RabbitMQ"));
+
+builder.Services.AddMassTransit(x =>
+{
+    x.AddConsumers(typeof(Program).Assembly);
+
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host(builder.Configuration["RabbitMQ:Host"], "/", h =>
+        {
+            h.Username(builder.Configuration["RabbitMQ:Username"]);
+            h.Password(builder.Configuration["RabbitMQ:Password"]);
+        });
+
+        cfg.ConfigureEndpoints(context);
+    });
+});
+
+
 #endregion
 
 var app = builder.Build();
@@ -61,3 +83,10 @@ await app.InitializeAsync();
 #endregion
 
 app.Run();
+
+public class RabbitMQSettings
+{
+    public string Host { get; set; }
+    public string Username { get; set; }    
+    public string Password { get; set; }
+}
