@@ -24,3 +24,10 @@ spec:
                 name: todo-clusterip-srv
                 port:
                   number: 8080
+          - path: /api/users
+            pathType: Prefix
+            backend:
+              service:
+                name: user-clusterip-srv
+                port:
+                  number: 8080
