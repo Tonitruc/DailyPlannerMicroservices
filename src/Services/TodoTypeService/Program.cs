@@ -1,13 +1,12 @@
-using BaseBuldingsBlocks.Behaviors;
+using Microsoft.EntityFrameworkCore;
 using BaseBuldingsBlocks.Middleware;
+using BaseBuldingsBlocks.Behaviors;
+using TodoTypeService.Endpoints;
+using TodoTypeService.Data;
+using System.Reflection;
 using FluentValidation;
 using MassTransit;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using System.Reflection;
-using TodoTypeService.Data;
-using TodoTypeService.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,35 +38,29 @@ builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
-builder.Services.Configure<IOptions<RabbitMQSettings>>(cfg => 
-    builder.Configuration.GetSection("RabbitMQ"));
+#endregion
 
-builder.Services.AddMassTransit(x =>
+#region Message Broker
+
+builder.Services.AddMassTransit(cfg =>
 {
-    x.AddConsumers(typeof(Program).Assembly);
-
-    x.UsingRabbitMq((context, cfg) =>
+    cfg.UsingRabbitMq((context, config) =>
     {
-        cfg.Host(builder.Configuration["RabbitMQ:Host"], "/", h =>
-        {
-            h.Username(builder.Configuration["RabbitMQ:Username"]);
-            h.Password(builder.Configuration["RabbitMQ:Password"]);
-        });
+        var settings = builder.Configuration.GetSection("RabbitMQSettings");
 
-        cfg.ConfigureEndpoints(context);
+        config.Host(settings["Host"], options =>
+        {
+            options.Username(settings["Username"]!);
+            options.Password(settings["Password"]!);
+        });
     });
 });
-
 
 #endregion
 
 var app = builder.Build();
 
-#region OtherUses
-
 app.UseExceptionHandler(options => { });
-
-#endregion
 
 #region Endpoints
 
@@ -83,10 +76,3 @@ await app.InitializeAsync();
 #endregion
 
 app.Run();
-
-public class RabbitMQSettings
-{
-    public string Host { get; set; }
-    public string Username { get; set; }    
-    public string Password { get; set; }
-}

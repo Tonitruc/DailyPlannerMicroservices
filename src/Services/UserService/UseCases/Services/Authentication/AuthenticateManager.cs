@@ -57,7 +57,8 @@ public class AuthenticateManager(IOptions<JwtTokensSettings> jwtTokensSettingsOp
         return [
             new (ClaimTypes.Name, user.UserName),
             new (ClaimTypes.Email, user.Email),
-            new (ClaimTypes.Role, roles.First())
+            new (ClaimTypes.Role, roles.First()),
+            new (ClaimTypes.NameIdentifier, user.Id)
         ];
     }
 

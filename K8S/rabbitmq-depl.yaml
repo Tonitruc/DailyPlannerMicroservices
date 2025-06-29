@@ -14,12 +14,18 @@ spec:
     spec:
       containers:
         - name: rabbitmq
-          image: rabbitmq:4.1-management
+          image: tonitrus/rabbit:1.0
           ports:
             - containerPort: 15672
               name: rbmq-mgmt-port
             - containerPort: 5672
               name: rbmq-msg-port
+          volumeMounts:
+            - name: rabbitmq-data
+              mountPath: /var/lib/rabbitmq
+      volumes:
+        - name: rabbitmq-data
+          emptyDir: {}
 ---
 apiVersion: v1
 kind: Service

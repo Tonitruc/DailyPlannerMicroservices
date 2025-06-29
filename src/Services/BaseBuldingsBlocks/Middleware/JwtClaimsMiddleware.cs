@@ -12,6 +12,8 @@ public class JwtClaimsMiddleware(IConfiguration configuration)
 {
     public bool IsAuthorized { get; private set; } = false;
     public bool IsValidToken { get; private set; } = false;
+
+    public string? UserId { get; private set; } 
     public string? Email { get; private set; }
     public string? UserName { get; private set; }
     public string? Role { get; private set; }
@@ -41,6 +43,7 @@ public class JwtClaimsMiddleware(IConfiguration configuration)
         Email = GetClaimValueOrDefault(claims, ClaimTypes.Email);
         Role = GetClaimValueOrDefault(claims, ClaimTypes.Role);
         UserName = GetClaimValueOrDefault(claims, ClaimTypes.Name);
+        UserId = GetClaimValueOrDefault(claims, ClaimTypes.NameIdentifier);
 
         await next(context);
     }
