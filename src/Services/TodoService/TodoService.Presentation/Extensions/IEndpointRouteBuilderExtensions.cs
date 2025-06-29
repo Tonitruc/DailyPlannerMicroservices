@@ -5,48 +5,48 @@ namespace TodoService.Presentation.Extensions;
 
 public static class IEndpointRouteBuilderExtensions
 {
-    public static IEndpointRouteBuilder MapGet(this IEndpointRouteBuilder endpointRouteBuilder, Delegate handler,
+    public static RouteHandlerBuilder MapGet(this IEndpointRouteBuilder endpointRouteBuilder, Delegate handler,
         [StringSyntax("Route")] string pattern = "")
     {
         if (handler.Method.IsAnonymous())
             throw new ArgumentException("The endpoint name must be specified when using anonymous handlers.");
 
-        endpointRouteBuilder.MapGet(pattern, handler);
+        var routeHandlerBuilder = endpointRouteBuilder.MapGet(pattern, handler);
 
-        return endpointRouteBuilder;
+        return routeHandlerBuilder;
     }
 
-    public static IEndpointRouteBuilder MapPost(this IEndpointRouteBuilder endpointRouteBuilder, Delegate handler,
+    public static RouteHandlerBuilder MapPost(this IEndpointRouteBuilder endpointRouteBuilder, Delegate handler,
         [StringSyntax("Route")] string pattern = "")
     {
         if (handler.Method.IsAnonymous())
             throw new ArgumentException("The endpoint name must be specified when using anonymous handlers.");
 
-        endpointRouteBuilder.MapPost(pattern, handler);
+        var routeHandlerBuilder = endpointRouteBuilder.MapPost(pattern, handler);
 
-        return endpointRouteBuilder;
+        return routeHandlerBuilder;
     }
 
-    public static IEndpointRouteBuilder MapPut(this IEndpointRouteBuilder endpointRouteBuilder, Delegate handler,
+    public static RouteHandlerBuilder MapPut(this IEndpointRouteBuilder endpointRouteBuilder, Delegate handler,
         [StringSyntax("Route")] string pattern = "")
     {
         if (handler.Method.IsAnonymous())
             throw new ArgumentException("The endpoint name must be specified when using anonymous handlers.");
 
-        endpointRouteBuilder.MapPut(pattern, handler);
+        var routeHandlerBuilder = endpointRouteBuilder.MapPut(pattern, handler);
 
-        return endpointRouteBuilder;
+        return routeHandlerBuilder;
     }
 
-    public static IEndpointRouteBuilder MapDelete(this IEndpointRouteBuilder endpointRouteBuilder, Delegate handler,
+    public static RouteHandlerBuilder MapDelete(this IEndpointRouteBuilder endpointRouteBuilder, Delegate handler,
         [StringSyntax("Route")] string pattern = "")
     {
         if (handler.Method.IsAnonymous())
             throw new ArgumentException("The endpoint name must be specified when using anonymous handlers.");
 
-        endpointRouteBuilder.MapDelete(pattern, handler);
+        var routeHandlerBuilder = endpointRouteBuilder.MapDelete(pattern, handler);
 
-        return endpointRouteBuilder;
+        return routeHandlerBuilder;
     }
 
     private static bool IsAnonymous(this MethodInfo method)

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
+using TodoService.Domain.Models;
 
 namespace TodoService.Infrastracture.Data;
 
@@ -57,5 +58,13 @@ public class ApplicationDatabaseInitializer(ApplicationDbContext context)
 
     public async Task TrySeedAsync()
     {
+        if(!context.Todos.Any())
+        {
+            await context.Todos.AddRangeAsync([
+                //new Todo { Description = "Test", Title = "Test", StartDate = DateTime.Now, EndDate = DateTime.Now.AddHours(1) }
+                ]);
+
+            await context.SaveChangesAsync();
+        }
     }
 }

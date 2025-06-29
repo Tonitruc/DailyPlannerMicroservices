@@ -1,11 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using TodoService.Application.Contracts.User;
 using TodoService.Domain.Abstractions;
 
 namespace TodoService.Infrastracture.Data.Interceptors;
 
-public class AuditableEntityInterceptor(TimeProvider timeProvider)
+public class AuditableEntityInterceptor(TimeProvider timeProvider,
+    IUserClaimsService userClaimsService)
     : SaveChangesInterceptor
 {
     public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, 
@@ -38,11 +40,11 @@ public class AuditableEntityInterceptor(TimeProvider timeProvider)
             {
                 if(entity.State == EntityState.Added)
                 {
-                    entity.Entity.CreatedBy = "God"; //TODO add user service
+                    entity.Entity.CreatedBy = userClaimsService.GetUserEmail();
                     entity.Entity.LastModified = timeProvider.GetUtcNow().UtcDateTime;
                 }
 
-                entity.Entity.CreatedBy = "God";
+                entity.Entity.CreatedBy = userClaimsService.GetUserEmail();
                 entity.Entity.Created = timeProvider.GetUtcNow().UtcDateTime;
             }
         }

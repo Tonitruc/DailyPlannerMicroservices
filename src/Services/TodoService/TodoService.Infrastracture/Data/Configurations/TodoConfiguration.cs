@@ -23,10 +23,5 @@ public class TodoConfiguration : IEntityTypeConfiguration<Todo>
         builder
             .Property(todo => todo.Description)
             .HasMaxLength(DescriptionMaxLength);
-
-        builder.
-            HasData(
-                new Todo() {Id = 1, Title = "Test", Description = "Test", CreatedBy = "God", TypeExternalId = 1}
-            );
     }
 }

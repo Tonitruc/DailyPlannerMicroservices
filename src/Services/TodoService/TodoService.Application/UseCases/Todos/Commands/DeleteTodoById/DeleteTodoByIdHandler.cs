@@ -1,12 +1,14 @@
 ﻿using MediatR;
 using TodoService.Application.Common.Exceptions.Specific;
+using TodoService.Application.Contracts.User;
 using TodoService.Domain.Contracts.Repositories;
 
 namespace TodoService.Application.UseCases.Todos.Commands.DeleteTodoById;
 
 public record DeleteTodoCommand(int Id) : IRequest<bool>;
 
-public class DeleteTodoByIdHandler(IRepositoryManager repository) : IRequestHandler<DeleteTodoCommand, bool>
+public class DeleteTodoByIdHandler(IRepositoryManager repository) 
+    : IRequestHandler<DeleteTodoCommand, bool>
 {
     public async Task<bool> Handle(DeleteTodoCommand request, CancellationToken cancellationToken)
     {
